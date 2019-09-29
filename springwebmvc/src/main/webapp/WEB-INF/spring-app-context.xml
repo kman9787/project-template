@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+	xmlns:context="http://www.springframework.org/schema/context" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://www.springframework.org/schema/beans  http://www.springframework.org/schema/beans/spring-beans.xsd 
+						http://www.springframework.org/schema/context  http://www.springframework.org/schema/context/spring-context.xsd">
+    <context:component-scan base-package="org.kash.template.webmvc" />
+    <context:annotation-config />
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/jsp/" />
+        <property name="suffix" value=".jsp" />
+    </bean>
+    <bean id="appProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+	    <property name="singleton" value="true" />
+	    <property name="ignoreResourceNotFound" value="false" />
+	    <property name="locations">
+	        <list>
+	        	<value>classpath:spring/config/datasource.properties</value>
+	            <value>classpath:spring/config/hibernate.properties</value>
+	        </list>
+	    </property>
+	</bean>
+	<bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+	    <property name="properties" ref="appProperties" />
+	</bean>
+    <import resource="classpath:spring/config/spring-datasource.xml" />
+</beans>
