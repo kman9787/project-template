@@ -13,7 +13,7 @@ public abstract class GenericDaoImpl<T extends Serializable> implements GenericD
 	private Class<T> clazz;
 
 	@PersistenceContext
-	EntityManager entityManager;
+	private EntityManager entityManager;
 
 	public GenericDaoImpl(Class<T> clazz) {
 		this.clazz = clazz;

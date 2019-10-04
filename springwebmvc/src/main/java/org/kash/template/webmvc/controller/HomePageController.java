@@ -18,12 +18,12 @@ public class HomePageController {
 	@Autowired
 	UserService userService;
 	
-	@RequestMapping(value = "firstpage", method = RequestMethod.GET)
+	@RequestMapping(value = "home", method = RequestMethod.GET)
 	public ModelAndView doPage1(HttpSession session, HttpServletRequest request, HttpServletResponse response) {
 		// Test the service
 		User user = userService.getUser("kman@gmail.com");
 		
-		ModelAndView mav = new ModelAndView("page1");
+		ModelAndView mav = new ModelAndView("home");
 		mav.addObject("loggedInUser", user);
 		
 		return mav;
