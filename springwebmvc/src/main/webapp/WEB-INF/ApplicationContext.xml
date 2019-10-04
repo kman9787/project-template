@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+	xmlns:context="http://www.springframework.org/schema/context" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:util="http://www.springframework.org/schema/util" 
+	xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans  http://www.springframework.org/schema/beans/spring-beans.xsd 
+						http://www.springframework.org/schema/context  http://www.springframework.org/schema/context/spring-context.xsd
+						http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+						http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
+	
+	<!-- Controller, Resource, Service class package here -->					
+    <context:component-scan base-package="org.kash.template.webmvc" />
+    <context:annotation-config />
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/jsp/" />
+        <property name="suffix" value=".jsp" />
+    </bean>
+    <bean id="appProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+	    <property name="singleton" value="true" />
+	    <property name="ignoreResourceNotFound" value="false" />
+	    <property name="locations">
+	        <list>
+	        	<value>classpath:spring/config/datasource.properties</value>
+	            <value>classpath:spring/config/hibernate.properties</value>
+	        </list>
+	    </property>
+	</bean>
+	<bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+	    <property name="properties" ref="appProperties" />
+	</bean>	
+				
+	<!-- Database connection setup -->   
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource" ref="datasource" />
+    </bean>
+    
+    <bean id="datasource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="${jdbc.driverClassName}" />
+        <property name="url" value="${jdbc.url}" />
+        <property name="username" value="${jdbc.username}" />
+        <property name="password" value="${jdbc.password}" />
+    </bean>
+    
+    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <property name="dataSource" ref="datasource" />
+        <!-- Entity class package here -->
+        <property name="packagesToScan" value="org.kash.template.webmvc.model"/>
+        <property name="jpaVendorAdapter">
+            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+                <property name="generateDdl" value="true" />
+                <property name="showSql" value="false"/>
+                <property name="databasePlatform" value="org.hibernate.dialect.MySQLDialect"/>
+                <property name="database" value="MYSQL"/>
+            </bean>
+        </property>
+        <property name="jpaProperties">
+        	<props>
+        		<prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</prop>
+        		<prop key="hibernate.cache.use_second_level_cache">${hibernate.cache.use_second_level_cache}</prop>
+        		<prop key="hibernate.cache.region.factory_class">${hibernate.cache.region.factory_class}</prop>
+        		<prop key="hibernate.cache.use_query_cache">${hibernate.cache.use_query_cache}</prop>
+        		<prop key="hibernate.generate_statistics">${hibernate.generate_statistics}</prop>
+        	</props>
+        </property>
+    </bean>
+    
+    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+        <property name="entityManagerFactory" ref="entityManagerFactory" />
+        <property name="jpaDialect">
+            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaDialect" />
+        </property>
+    </bean>
+    
+    <bean id="customAuthenticationEntryPoint" class="org.kash.template.webmvc.util.CustomAuthenticationEntryPoint">
+        <constructor-arg value="/login"/>
+    </bean>
+    <bean id="customAuthenticationProvider" class="org.kash.template.webmvc.util.CustomAuthenticationProvider"/>
+    <bean id="customAccessDeniedHandler" class="org.kash.template.webmvc.util.CustomAccessDeniedHandler"/>
+    
+    <!-- Spring security setup -->
+    <security:http auto-config="false" disable-url-rewriting="true" use-expressions="true" entry-point-ref="customAuthenticationEntryPoint">
+        <security:intercept-url pattern="/login" access="permitAll" />
+        <security:intercept-url pattern="/logout" access="permitAll" />
+        <security:intercept-url pattern="/accessdenied" access="permitAll" />
+        <security:intercept-url pattern="/**" access="isAuthenticated()" />
+        <security:logout invalidate-session="true" logout-success-url="/logout" />
+        <security:access-denied-handler ref="customAccessDeniedHandler"/>
+    </security:http>
+ 
+    <security:authentication-manager alias="authenticationManager" >
+    	<security:authentication-provider ref="customAuthenticationProvider"/>
+    </security:authentication-manager>
+    
+</beans>
