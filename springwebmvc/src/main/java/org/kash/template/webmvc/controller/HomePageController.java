@@ -13,12 +13,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
+@RequestMapping("/secured")
 public class HomePageController {
 
 	@Autowired
 	UserService userService;
 	
-	@RequestMapping(value = "home", method = RequestMethod.GET)
+	@RequestMapping(value = "/home", method = RequestMethod.GET)
 	public ModelAndView doPage1(HttpSession session, HttpServletRequest request, HttpServletResponse response) {
 		// Test the service
 		User user = userService.getUser("kman@gmail.com");

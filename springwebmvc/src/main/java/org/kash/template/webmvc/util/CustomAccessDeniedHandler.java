@@ -17,7 +17,7 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler {
 	public void handle(HttpServletRequest request, HttpServletResponse response,
 			AccessDeniedException accessDeniedException) throws IOException, ServletException {
 		RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
-		String redirectUrl = "logout";
+		String redirectUrl = "/accessdenied";
 
 		redirectStrategy.sendRedirect(request, response, redirectUrl);
 	}

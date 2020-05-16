@@ -72,20 +72,37 @@
         </property>
     </bean>
     
+    <!-- Spring security setup -->
     <bean id="customAuthenticationEntryPoint" class="org.kash.template.webmvc.util.CustomAuthenticationEntryPoint">
         <constructor-arg value="/login"/>
     </bean>
+    <bean id="authenticationFailureHandler" class="org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler">
+    	<property name="allowSessionCreation" value="true"/>
+	    <property name="defaultFailureUrl" value="/accessdenied?error" />
+	</bean>
+	<bean id="authenticationSuccessHandler" class="org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler">
+	 	<property name="defaultTargetUrl" value="/secured/home"/>
+	</bean>
     <bean id="customAuthenticationProvider" class="org.kash.template.webmvc.util.CustomAuthenticationProvider"/>
     <bean id="customAccessDeniedHandler" class="org.kash.template.webmvc.util.CustomAccessDeniedHandler"/>
+    <bean id="loginVerifierFilter" class="org.kash.template.webmvc.util.CustomAuthenticationFilter" >
+    	<property name="sessionAuthenticationStrategy" ref="sas" />
+		<property name="authenticationManager" ref="authenticationManager"/>
+		<property name="authenticationFailureHandler" ref="authenticationFailureHandler"/>
+		<property name="authenticationSuccessHandler" ref="authenticationSuccessHandler"/>
+	</bean>
+    <bean id="sas" class="org.springframework.security.web.authentication.session.ChangeSessionIdAuthenticationStrategy"/>
     
-    <!-- Spring security setup -->
-    <security:http auto-config="false" disable-url-rewriting="true" use-expressions="true" entry-point-ref="customAuthenticationEntryPoint">
-        <security:intercept-url pattern="/login" access="permitAll" />
+    <security:http  auto-config="false" disable-url-rewriting="true" entry-point-ref="customAuthenticationEntryPoint">
+     	<security:custom-filter ref="loginVerifierFilter" position="FORM_LOGIN_FILTER"/>
+        <security:intercept-url pattern="/css/**" access="permitAll" />
+        <security:intercept-url pattern="/js/**" access="permitAll" />
+        <security:intercept-url pattern="/images/**" access="permitAll" />
         <security:intercept-url pattern="/logout" access="permitAll" />
         <security:intercept-url pattern="/accessdenied" access="permitAll" />
-        <security:intercept-url pattern="/**" access="isAuthenticated()" />
+        <security:intercept-url pattern="/login" access="isAnonymous()" />
+        <security:intercept-url pattern="/secured/**" access="isAuthenticated()" />
         <security:logout invalidate-session="true" logout-success-url="/logout" />
-        <security:access-denied-handler ref="customAccessDeniedHandler"/>
     </security:http>
  
     <security:authentication-manager alias="authenticationManager" >

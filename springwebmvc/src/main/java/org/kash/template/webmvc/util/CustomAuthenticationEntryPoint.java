@@ -19,10 +19,9 @@ public class CustomAuthenticationEntryPoint extends LoginUrlAuthenticationEntryP
 	}
 	
 	public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
-		RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
-		String redirectUrl = "/login";
-		
-		redirectStrategy.sendRedirect(request, response, redirectUrl);
+		// TODO: fix me.
+
+		super.commence(request, response, authException);
 	}
 
 }
