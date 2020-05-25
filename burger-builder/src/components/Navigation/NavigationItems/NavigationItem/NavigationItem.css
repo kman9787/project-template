@@ -1,17 +1,13 @@
 .Navitem {
-  margin: 0;
+  margin: 10px 0;
   box-sizing: border-box;
-  display: flex;
-  height: 100%;
-  align-items: center;
+  display: block;
+  width: 100%;
 }
 
 .Navitem a {
-  color: white;
-  text-emphasis: none;
-  height: 100%;
-  padding: 16px 10px;
-  border-bottom: 4px solid transparent;
+  color: #8f5c2c;
+  width: 100%;
   box-sizing: border-box;
   display: block;
   text-decoration: none;
@@ -20,7 +16,30 @@
 .Navitem a:hover,
 .Navitem a:active,
 .Navitem a.active {
-  background-color: #8f5c2c;
-  border-bottom: 4px solid #40a4c8;
-  color: white;
+  color: #40a4c8;
+}
+
+@media (min-width: 500px) {
+  .Navitem {
+    margin: 0;
+    display: flex;
+    height: 100%;
+    width: auto;
+    align-items: center;
+  }
+
+  .Navitem a {
+    color: white;
+    height: 100%;
+    padding: 16px 10px;
+    border-bottom: 4px solid transparent;
+  }
+
+  .Navitem a:hover,
+  .Navitem a:active,
+  .Navitem a.active {
+    background-color: #8f5c2c;
+    border-bottom: 4px solid #40a4c8;
+    color: white;
+  }
 }
