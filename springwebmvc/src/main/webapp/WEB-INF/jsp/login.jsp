@@ -20,9 +20,10 @@
                     <td colspan="2">&nbsp;</td>
                 </tr>
                 <tr>
-                    <td colspan='2'><input name="submit" type="submit">&nbsp;<input name="reset" type="reset"></td>
+                    <td colspan='2'><input name="submit" type="submit">&nbsp;<input name="reset" type="reset"/></td>
                 </tr>
             </table>
         </form>
+        <a href="signup"><span>signup</span></a>
     </body>
 </html>

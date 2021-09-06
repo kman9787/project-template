@@ -49,9 +49,9 @@
         <property name="jpaVendorAdapter">
             <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
                 <property name="generateDdl" value="true" />
-                <property name="showSql" value="false"/>
-                <property name="databasePlatform" value="org.hibernate.dialect.MySQLDialect"/>
-                <property name="database" value="MYSQL"/>
+                <property name="showSql" value="true"/>
+                <property name="databasePlatform" value="${jdbc.jpa.database-platform}"/>
+                <property name="database" value="${jdbc.jpa.database}"/>
             </bean>
         </property>
         <property name="jpaProperties">
@@ -83,9 +83,7 @@
 	<bean id="authenticationSuccessHandler" class="org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler">
 	 	<property name="defaultTargetUrl" value="/secured/home"/>
 	</bean>
-    <bean id="customAuthenticationProvider" class="org.kash.template.webmvc.util.CustomAuthenticationProvider"/>
-    <bean id="customAccessDeniedHandler" class="org.kash.template.webmvc.util.CustomAccessDeniedHandler"/>
-    <bean id="loginVerifierFilter" class="org.kash.template.webmvc.util.CustomAuthenticationFilter" >
+    <bean id="loginVerifierFilter" class="org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter" >
     	<property name="sessionAuthenticationStrategy" ref="sas" />
 		<property name="authenticationManager" ref="authenticationManager"/>
 		<property name="authenticationFailureHandler" ref="authenticationFailureHandler"/>
@@ -101,6 +99,7 @@
         <security:intercept-url pattern="/logout" access="permitAll" />
         <security:intercept-url pattern="/accessdenied" access="permitAll" />
         <security:intercept-url pattern="/login" access="isAnonymous()" />
+        <security:intercept-url pattern="/signup" access="isAnonymous()" />
         <security:intercept-url pattern="/secured/**" access="isAuthenticated()" />
         <security:logout invalidate-session="true" logout-success-url="/logout" />
     </security:http>
