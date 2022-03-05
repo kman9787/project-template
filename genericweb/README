@@ -1,0 +1,7 @@
+Note 1: Add below entry to "tomcat-users.xml" this will enable maven lifecycle "tomcat9:deploy".
+
+    <role rolename="manager-gui"/>
+	<role rolename="manager-script"/>
+	<role rolename="manager-jmx"/>
+	<user username="admin" password="tomcat" roles="manager-gui"/>
+	<user username="maven" password="tomcat" roles="manager-jmx,manager-script"/>
