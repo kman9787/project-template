@@ -38,14 +38,14 @@
 			<version>5.6.2</version>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-			<groupId>org.opoo.maven</groupId>
-			<artifactId>tomcat9-maven-plugin</artifactId>
-			<version>3.0.0</version>
-		</dependency>
 	</dependencies>
 	<build>
 		<finalName>genericweb</finalName>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+			</resource>
+		</resources>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -91,7 +91,8 @@
 				<version>3.0.0</version>
 				<configuration>
 					<url>http://localhost:8080/manager/text</url>
-					<server>TomcatServer</server>
+					<username>maven</username>
+					<password>tomcat</password>
 					<path>/${project.build.finalName}</path>
 					<update>true</update>
 				</configuration>
