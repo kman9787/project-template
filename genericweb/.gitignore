@@ -9,7 +9,8 @@
 # production
 /target
 /.settings
-/.project
+
 # misc
 .DS_Store
-
+.gitignore
+.project
