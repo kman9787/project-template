@@ -7,10 +7,6 @@
 
 
 # production
-/target
-/.settings
-
-# misc
-.DS_Store
-.gitignore
-.project
+/target/*
+/.settings/*
+.classpath
