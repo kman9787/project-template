@@ -4,6 +4,7 @@ import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.time.temporal.TemporalField;
+import java.util.Date;
 import java.util.TimeZone;
 import java.util.stream.Stream;
 
@@ -50,6 +51,8 @@ public class DateTimeExample {
 
         LocalDate dob = LocalDate.of(1987, Month.JULY, 9);
         Period p = Period.between(dob, LocalDate.now());
+
+        LocalDate.from(new Date().toInstant());
 
         System.out.println(p.getYears());
 
