@@ -63,7 +63,7 @@
               "browserTarget": "spring-angular-app:build:production"
             },
             "development": {
-              "browserTarget": "spring-angular-app:build:development",
+              "browserTarget": "spring-angular-app:build:development"
             }
           },
           "defaultConfiguration": "development"
