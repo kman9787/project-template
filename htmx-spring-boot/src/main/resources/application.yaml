@@ -1,0 +1,62 @@
+spring:
+  application:
+    name: htmx-demo
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  main:
+    banner-mode: "off"
+  thymeleaf:
+    cache: false
+    prefix: classpath:/static/public/
+  jpa:
+    open-in-view: true
+  mail:
+    scheduler:
+      persistence:
+        enabled: false
+        redis:
+          embedded: false
+          enabled: false
+    host: smtp.gmail.com
+    port: 587
+    username: name.surname@gmail.com
+    password: V3ry_Str0ng_Password
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+server:
+  error:
+    whitelabel:
+      enabled: true
+    include-stacktrace: always
+  address: localhost
+  port: ${PORT:8080}
+logging:
+  pattern:
+    console: "%d{HH:mm:ss.SSS} %highlight(%-5level) %yellow(%logger{40}.%M\\(%class{0}.java:%line\\)) - %msg%throwable%n"
+  level:
+    root: WARN
+  org:
+    springframework:
+      boot:
+        test:
+          context:
+            SpringBootTestContextBootstrapper: WARN
+      test:
+        context:
+          support:
+            AbstractContextLoader: OFF
+            AnnotationConfigContextLoaderUtils: OFF
+  com:
+    devhow:
+      identity:
+        user:
+          EmailSenderService: INFO
+external:
+  server:
+    address: http://localhost:8080 # Do not include trailing slash
