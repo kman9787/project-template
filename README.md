@@ -13,5 +13,6 @@ GRANT ALL PRIVILEGES ON db_dev.* TO 'user_dev'@'%';
 add client option to your mysql-connector allowPublicKeyRetrieval=true
 
 Running tomcat with remote debugging
+
 - catalina jpda start 
 
