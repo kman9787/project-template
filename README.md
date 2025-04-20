@@ -16,3 +16,5 @@ Running tomcat with remote debugging
 
 - catalina jpda start 
 
+Notes: 
+ command to  store git PAT - git config --global credential.helper store
