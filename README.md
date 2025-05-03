@@ -19,3 +19,6 @@ Running tomcat with remote debugging
 Notes: 
  first enter the PAT as password when prompted. 
  then enter the command to store git PAT: git config --global credential.helper store
+
+
+**
