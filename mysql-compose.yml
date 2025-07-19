@@ -1,0 +1,23 @@
+version: '3'
+services:
+ database:
+  image: mysql:latest
+  container_name: mysqldb
+  environment:
+   - "MYSQL_DATABASE=appdb001"
+   - "MYSQL_USER=appdb001"
+   - "MYSQL_PASSWORD=appdb001"
+   - "MYSQL_ROOT_PASSWORD=appdb001"
+  volumes:
+   - db_data:/var/lib/mysql
+  ports:
+   - "3306:3306"
+  networks:
+   - mysqldb-network
+   
+volumes:
+ db_data:
+ 
+networks:
+  mysqldb-network:
+    driver: bridge
