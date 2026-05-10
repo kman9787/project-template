@@ -15,3 +15,17 @@ JavaScratch/.idea/misc.xml
 JavaScratch/.idea/modules.xml
 JavaScratch/.idea/vcs.xml
 react-sample-app/.eslintcache
+spring-simple-api/.settings/org.eclipse.core.resources.prefs
+spring-simple-api/.settings/org.eclipse.jdt.apt.core.prefs
+spring-simple-api/.settings/org.eclipse.jdt.core.prefs
+spring-simple-api/.settings/org.eclipse.m2e.core.prefs
+spring-simple-api/.settings/org.springframework.ide.eclipse.prefs
+cucumberdemo/target/test-classes/features/login.feature
+cucumberdemo/target/classes/dev/cucumberdemo/Application.class
+cucumberdemo/target/test-classes/dev/cucumberdemo/ApplicationTest.class
+cucumberdemo/target/test-classes/dev/cucumberdemo/steps/LoginSteps.class
+cucumberdemo/target/test-classes/dev/cucumberdemo/steps/TestRunner.class
+spring-simple-api/.classpath
+spring-simple-api/.factorypath
+spring-simple-api/.project
+spring-simple-api/data/sample.mv.db

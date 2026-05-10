@@ -2,12 +2,12 @@ version: '3'
 services:
  database:
   image: mysql:latest
-  container_name: mysqldb
+  container_name: mysqldbprod
   environment:
-   - "MYSQL_DATABASE=appdb001"
-   - "MYSQL_USER=appdb001"
-   - "MYSQL_PASSWORD=appdb001"
-   - "MYSQL_ROOT_PASSWORD=appdb001"
+   - "MYSQL_DATABASE=appdbprod"
+   - "MYSQL_USER=appdbprod"
+   - "MYSQL_PASSWORD=sd01849sd01849"
+   - "MYSQL_ROOT_PASSWORD=sd01849sd01849"
   volumes:
    - db_data:/var/lib/mysql
   ports:
